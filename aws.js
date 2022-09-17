@@ -1,7 +1,7 @@
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const mime = require('mime-types')
-const Work = require('./work');
+const Work = require('workjs/work');
 let work = new Work();
 
 let nondestructive = false;
