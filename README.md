@@ -12,12 +12,54 @@ AWS s3 bucket uploader with:
 - cachecontrol
 - local filesystem recursive directory traversal
 
+Include the awsjs lib
+```
+let awsjs = require( 'awsjs/aws' ) // include our awsjs lib
+```
+
 Methods exposed:
-- uploadFileData
-- uploadDir
-- listObjects
-- deleteObjects
-- clearBucket
+```
+// upload data to a filename in s3
+async function uploadFileData( data, mime, destName, options = { gendirobj: true, cache: true, nocache_patterns: ['index.html$', 'index.html.gz$'] } )
+
+// usage: uploadFile( "src/index.html", "index.html" );
+async function uploadFile( fileName, destName, options = { gendirobj: true, cache: true, nocache_patterns: ['index.html$', 'index.html.gz$'] } )
+
+// usage: uploadDir( "dist/", "" );
+async function uploadDir( dirName, destName,
+                          options = { gendirobj: true,
+                                      cache: true, batch_size: 8, whitelist: [],
+                                      blacklist: [],
+                                      nocache_patterns: ['index.html$', 'index.html.gz$'] } )
+  
+// list all objects from a bucket
+// give:
+// let params = {
+//   Bucket: bucketname,
+//   MaxKeys: 1,   // s3 max is 1000
+// };
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjectsV2-property
+async function listObjects( params, out = [] )
+
+// delete object array such as:  [ { Key: 'STRING_VALUE' }, ... ]
+// give:
+// let params = {
+//   Bucket: bucketname,
+//   Delete: {
+//     Objects: objs,
+//   },
+// };
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#deleteObjects-property
+async function deleteObjects( params )
+
+// clear an entire s3 bucket (or files from a bucket)
+// whitelist - only delete objects in this whitelist
+// blacklist - dont delete any objects prefixed with any in this blacklist
+// e.g.
+//    whitelist: [`^installed`]
+//    blacklist: [`^__bots`]
+async function clearBucket( options = { whitelist: [], blacklist: [] } )
+```
 
 ## Usage
 Example `upload.js` script, used to deploy a web app to s3
