@@ -12,9 +12,17 @@ AWS s3 bucket uploader with:
 - cachecontrol
 - local filesystem recursive directory traversal
 
-Include the awsjs lib
+Include the awsjs lib in .js file
 ```
 let awsjs = require( 'awsjs/aws' ) // include our awsjs lib
+```
+
+Include the awsjs lib in `package.json`
+```
+ "devDependencies": {
+   "awsjs": "https://github.com/subatomicglue/awsjs#main",
+   "workjs": "https://github.com/subatomicglue/workjs#main"
+ }
 ```
 
 Methods exposed:
@@ -64,7 +72,7 @@ async function clearBucket( options = { whitelist: [], blacklist: [] } )
 ## Usage
 Example `upload.js` script, used to deploy a web app to s3
 ```
-const aws = require('./aws')
+const aws = require('awsjs/aws')
 
 // look in ~/.aws/credentials for which profile to use
 var credentials = new aws.AWS.SharedIniFileCredentials({profile: 'myprofile'});
