@@ -11,6 +11,7 @@
   "dependencies": {},
   "devDependencies": {
     "aws-sdk": "^2.531.0",
-    "mime-types": "^2.1.22"
+    "mime-types": "^2.1.22",
+    "workjs": "https://github.com/subatomicglue/workjs#main"
   }
 }
